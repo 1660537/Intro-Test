@@ -1,0 +1,130 @@
+﻿@using IntroTest.Models;
+
+@{
+    ViewData["Title"] = "Rating";
+    var passcode = Context.Session.GetObjectFromJson<Passcode>(SessionDef.SESSION_USERLOGIN);
+}
+<link rel="stylesheet" href="~/css/rating.css" />
+
+<div class="text-lg-center" style="margin-top: 35px;">
+    <h2 style="font-weight: bold; margin-top: 10px;">ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ</h2>
+    <h5 style="font-weight: 200">Bạn đang đánh giá chi nhánh <span class="branch" style="font-weight: bold">Phan Chu Trinh</span></h5>
+</div>
+
+<div class="text-lg-center container-rating-page">
+    @{
+        if(passcode.IdRole == 1) {
+            <h4 id="rating" style="font-weight: bold">
+                Bạn thấy lớp học, văn phòng ALT IELTS Gia sư có
+                <span id="content-rating" style="color: #C01E31">Sạch sẽ</span> không?
+            </h4>
+        }
+        else if(passcode.IdRole == 2){
+            <h4 id="rating" style="font-weight: bold">
+                Bạn có hài lòng với dịch vụ
+                <span id="content-rating" style="color: #C01E31">Bảo vệ</span> của ALT IELTS Gia Sư không ?
+            </h4>
+        }
+    }
+    
+    <div>
+        <img class="icon-rating" style="height: 75px;" src="~/img/emoji/crying.png" />
+    </div>
+    <div class="content-rating">
+        <h5 class="feedback-content">Rất không sạch sẽ</h5>
+    </div>
+    <div class="star-rating">
+        <div>
+            <img id="star" class="star1" src="~/img/star-not-rating.png" />
+            <img id="star" class="star2" src="~/img/star-not-rating.png" />
+            <img id="star" class="star3" src="~/img/star-not-rating.png" />
+            <img id="star" class="star4" src="~/img/star-not-rating.png" />
+            <img id="star" class="star5" src="~/img/star-not-rating.png" />
+        </div>
+    </div>
+    <div class="feedback">
+        <textarea class="content-feedback" rows="5" cols="50" name="comment" placeholder="Xin cho biết góp ý của bạn để chúng tôi có thể cải thiện dịch vụ tốt hơn.">
+        </textarea>
+    </div>
+    <div>
+        <a class="btn btn-danger btn-send-data" role="button" onclick="SendDataFeedBack()">Gửi</a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vui lòng nhập passcode</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="password-field" type="text" class="form-control" name="password" value="" placeholder="Passcode">
+                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" onclick="Logout()">Đăng xuất</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="changeRoleModal" tabindex="-1" role="dialog" aria-labelledby="changeRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Vui lòng nhập passcode</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input id="password-field-change" type="text" class="form-control" name="password" value="" placeholder="Passcode">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-md-6 pick-service">Chọn loại dịch vụ</span>
+                    </div>
+                    <div class="form-group group-tags">
+                        <div class="box-sanitation">
+                            <button class="login-box-type">
+                                <img class="img-login" src="/img/login/bucket.png" />
+                                <br />
+                                <span class="text-login">Vệ sinh</span>
+                            </button>
+                        </div>
+                        <div class="box-security">
+                            <button class="login-box-type">
+                                <img class="img-login" src="~/img/login/policeman.png" />
+                                <br />
+                                <span class="text-login">Bảo vệ</span>
+                            </button>
+                        </div>
+                        <div class="box-customer-care">
+                            <button class="login-box-type">
+                                <img class="img-login" src="~/img/login/social-care.png" />
+                                <br />
+                                <span class="text-login">Chăm sóc học viên</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-danger" onclick="ChangeRole()">Đổi dịch vụ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/rating.js" asp-append-version="true"></script>
+<script src="~/js/common.js" asp-append-version="true"></script>
