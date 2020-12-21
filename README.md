@@ -5,7 +5,7 @@ Setup để chạy project:
 Passcode Login:
 Dịch vụ:
 	Vệ sinh: 
-		Passcode: 001, 002
+		Passcode: 001 và 002
 		
 	Bảo vệ: 
-		Passcode: 001, 002	
+		Passcode: 001 và 002	
