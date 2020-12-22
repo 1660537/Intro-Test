@@ -1,0 +1,61 @@
+﻿@using IntroTest.Models;
+
+@{
+    ViewData["Title"] = "Rating";
+    var passcode = Context.Session.GetObjectFromJson<Passcode>(SessionDef.SESSION_USERLOGIN);
+}
+<link rel="stylesheet" href="~/css/rating.css" />
+
+<div class="text-lg-center" style="margin-top: 35px;">
+    <h2 style="font-weight: bold; margin-top: 10px;">ĐÁNH GIÁ CHẤT LƯỢNG DỊCH VỤ</h2>
+    <h5 style="font-weight: 200">Bạn đang đánh giá chi nhánh <span class="branch" style="font-weight: bold">Phan Chu Trinh</span></h5>
+</div>
+
+<div class="text-lg-center container-rating-page">
+    @{
+        if (passcode != null)
+        {
+            if (passcode.IdRole == 1)
+            {
+                <h4 id="rating" style="font-weight: bold">
+                    Bạn thấy lớp học, văn phòng ALT IELTS Gia sư có
+                    <span id="content-rating" style="color: #C01E31">Sạch sẽ</span> không?
+                </h4>
+            }
+            else if (passcode.IdRole == 2)
+            {
+                <h4 id="rating" style="font-weight: bold">
+                    Bạn có hài lòng với dịch vụ
+                    <span id="content-rating" style="color: #C01E31">Bảo vệ</span> của ALT IELTS Gia Sư không ?
+                </h4>
+            }
+        }
+    }
+
+    <div>
+        <img class="icon-rating" style="height: 75px;" src="~/img/emoji/crying.png" />
+    </div>
+    <div class="content-rating">
+        <h5 class="feedback-content">Rất không sạch sẽ</h5>
+    </div>
+    <div class="star-rating">
+        <div>
+            <img id="star" class="star1" src="~/img/star-not-rating.png" />
+            <img id="star" class="star2" src="~/img/star-not-rating.png" />
+            <img id="star" class="star3" src="~/img/star-not-rating.png" />
+            <img id="star" class="star4" src="~/img/star-not-rating.png" />
+            <img id="star" class="star5" src="~/img/star-not-rating.png" />
+        </div>
+    </div>
+    <div class="feedback">
+        <textarea class="content-feedback" rows="5" cols="50" name="comment" placeholder="Xin cho biết góp ý của bạn để chúng tôi có thể cải thiện dịch vụ tốt hơn.">
+        </textarea>
+    </div>
+    <div>
+        <a class="btn btn-danger btn-send-data" role="button" onclick="SendDataFeedBack()">Gửi</a>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/rating.js" asp-append-version="true"></script>
+<script src="~/js/common.js" asp-append-version="true"></script>
